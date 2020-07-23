@@ -40,6 +40,8 @@ The pseudocode would look like the following:
 
 In order to improve efficiency, I only search for paths when there are no current paths in record, so the exact code would be slightly different.
 
+<img src="https://github.com/yth345/-/blob/master/pseudocode2.PNG" width=500>
+
 ## To-Do List
 1. Visualize the outcome.
 2. Provide codes to generate maps.
