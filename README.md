@@ -12,7 +12,7 @@ The position of the snake would be stored in `queue<tuple<int, int>>`. Of which,
 
 After one unit of time, the snake would move one step in either direction (up, down, left, right), that is to say, `push` a `tuple` to the back of the queue and `pop` the first element.
 
-<img src="https://github.com/yth345/snake-ai/blob/master/explain_pics/path0.jpg" width=500>
+<img src="https://github.com/yth345/snake-ai/blob/master/explain_pics/snake.jpg" width=500>
 
 ### Maps
 Maps are two-dimensional vectors `vector<vector<int>>`. Maps may change sizes as you gain more points.  
