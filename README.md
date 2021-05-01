@@ -12,7 +12,7 @@ The position of the snake would be stored in `queue<tuple<int, int>>`. Of which,
 
 After one unit of time, the snake would move one step in either direction (up, down, left, right), that is to say, `push` a `tuple` to the back of the queue and `pop` the first element.
 
-<img src="https://github.com/yth345/-/blob/master/snake.jpg" width=500>
+<img src="https://github.com/yth345/snake-ai/blob/master/explain_pics/snake.jpg" width=500>
 
 ### Maps
 Maps are two-dimensional vectors `vector<vector<int>>`. Maps may change sizes as you gain more points.  
@@ -26,7 +26,7 @@ Map informations:
 In the beginning, looking for a shortest path to the food may be a good strategy, however, as the snake's body length grow longer, a shortest path would be likely to cause the snake to walk into a dead end.
 initial status             | walk a shortest path      | walk a longer path
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/yth345/-/blob/master/path0.jpg) | ![](https://github.com/yth345/-/blob/master/path1.jpg) | ![](https://github.com/yth345/-/blob/master/path2.jpg)
+![](https://github.com/yth345/snake-ai/blob/master/explain_pics/path0.jpg) | ![](https://github.com/yth345/snake-ai/blob/master/explain_pics/path1.jpg) | ![](https://github.com/yth345/snake-ai/blob/master/explain_pics/path2.jpg)
 
 One way to solve the problem is to NOT walk the shortest path, in other words, walk longer paths. Nevertheless, finding a longest path is a NP-complete problem and finding an general longer but efficient path is no eaiser.
 
@@ -36,11 +36,11 @@ To find out if the snake is able to find its tail after eating the food or not, 
 
 The pseudocode would look like the following:
 
-<img src="https://github.com/yth345/-/blob/master/pseudocode%20for%20snake.PNG" width=500>
+<img src="https://github.com/yth345/snake-ai/blob/master/explain_pics/pseudocode%20for%20snake.PNG" width=500>
 
 In order to improve efficiency, I only search for paths when there are no current paths in record, so the exact code would be slightly different.
 
-<img src="https://github.com/yth345/-/blob/master/pseudocode2.PNG" width=500>
+<img src=https://github.com/yth345/snake-ai/blob/master/explain_pics/pseudocode2.PNG" width=500>
 
 ## To-Do List
 1. Visualize the outcome.
