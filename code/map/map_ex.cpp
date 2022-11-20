@@ -18,7 +18,7 @@ void loadmaps(vector<vector<int>> map[101]){
             fname = "0"+to_string(i);
         else
             fname = to_string(i);
-        file.open("/Users/natalie/CLionProjects/final/maps/map_"+fname,ios::in);
+        file.open("/maps/map_"+fname,ios::in);
         if(!file){
             cout<<"no file"<<endl;
         }
@@ -26,8 +26,8 @@ void loadmaps(vector<vector<int>> map[101]){
             do{
                 vector<int> tempv;
                 file.getline(buffer,sizeof(buffer));
-                const char* d = " "; //分割依據
-                char *row; //儲存每次分割結果
+                const char* d = " ";
+                char *row;
                 row = strtok(buffer,d);
                 while(row){
                     string s = row;
@@ -41,7 +41,8 @@ void loadmaps(vector<vector<int>> map[101]){
         file.close();
     }
 }
-//(所有地圖,下一張地圖,蛇的位置)
+
+// (all map, next map, snake position)
 vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue<tuple<int, int>> snack){
     tuple<int,int> position;
     int row,col;
@@ -50,7 +51,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
     int flag7=0;
     int flagall=0;
 
-    //尋找地圖得分點位置
+    // find snack position on map
     for(int m=0;m<50;m++){
         for(int n=0;n<50;n++){
             if(map[mapindex][m][n]==1){
@@ -61,7 +62,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
         }
     }
 
-    //判斷得分點有沒有在蛇身上
+    // check if snack is on the snake
     int flag=0;
     queue<tuple<int, int>> tempsnack=snack;
     while(!tempsnack.empty() && flag==0){
@@ -73,7 +74,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
     if(flag==0)
         return map[mapindex];
     else{
-//      3*3找新得分點
+        // 3*3 find new snack position
         for(int i=row-1;i<row+2;i++){
             if(i>0&&i<49&&flag3==0){
                 for(int j=col-1;j<col+2;j++){
@@ -81,7 +82,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
                         tempsnack=snack;
                         flag=0;
                         position=make_tuple(i,j);
-                        //每一個點跟蛇的位置比較，有找到
+                        // compare every position and the position of snake, found
                         while(!tempsnack.empty() && flag==0){
                             if(tempsnack.front()==position){
                                 flag=1;
@@ -89,8 +90,8 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
                             tempsnack.pop();
                         }
                         if(flag==0){
-                            flag3=1;//在3*3中找到可以放點的地方
-                            row=i;//新點index
+                            flag3=1; // find a position to put snack in 3*3
+                            row=i; // index of new snack position
                             col=j;
                             break;
                         }
@@ -103,7 +104,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
                 break;
             }
         }
-        if(flag3==1){  //3*3找到
+        if(flag3==1){  // 3*3 found
             vector<vector<int>> newmap;
             for(int i=0;i<50;i++) {
                 vector<int> tempv;
@@ -125,7 +126,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
             }
             return newmap;
         }
-        else if(flag3==0&&flag5==0){ //5*5找得分點
+        else if(flag3==0&&flag5==0){  // 5*5 find new snack position
             for(int i=row-2;i<row+3;i++) {
                 if (i > 0 && i < 49 && flag5==0) {
                     for (int j = col - 2; j < col + 3; j++) {
@@ -133,7 +134,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
                             tempsnack = snack;
                             flag = 0;
                             position = make_tuple(i, j);
-                            //每一個點跟蛇的位置比較，有找到
+                            // compare every position and the position of snake, found
                             while (!tempsnack.empty() && flag == 0) {
                                 if (tempsnack.front() == position) {
                                     flag = 1;
@@ -141,7 +142,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
                                 tempsnack.pop();
                             }
                             if (flag == 0) {
-                                flag5 = 1;//在5*5中找到可以放點的地方
+                                flag5 = 1;  // find a position to put snack in 5*5
                                 row = i;
                                 col = j;
                                 break;
@@ -156,7 +157,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
                 }
             }
         }
-        if(flag5==1){  //5*5找到
+        if(flag5==1){  // 5*5 found
             vector<vector<int>> newmap;
             for(int i=0;i<50;i++) {
                 vector<int> tempv;
@@ -186,7 +187,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
                             tempsnack = snack;
                             flag = 0;
                             position = make_tuple(i, j);
-                            //每一個點跟蛇的位置比較，有找到
+                            // compare every position and the position of snake, found
                             while (!tempsnack.empty() && flag == 0) {
                                 if (tempsnack.front() == position) {
                                     flag = 1;
@@ -194,7 +195,7 @@ vector<vector<int>> generate_map(vector<vector<int>> map[101],int mapindex,queue
                                 tempsnack.pop();
                             }
                             if (flag == 0) {
-                                flag5 = 1;//在5*5中找到可以放點的地方
+                                flag5 = 1;  // find a position to put snack in 5*5
                                 row = i;
                                 col = j;
                                 break;
@@ -259,11 +260,11 @@ int main() {
     temp=make_tuple(6,4);
     snack.push(temp);
 
-    vector<vector<int>> map[101];//1~100存一百張地圖
-    loadmaps(map);//從檔案中讀取地圖資料
+    vector<vector<int>> map[101];  // 1~100 save 100 maps
+    loadmaps(map);  // read map data from files
 
     vector<vector<int>> nextmap=generate_map(map,1,snack);
-//    檢查地圖
+    // check map
     for(int i=0; i<50; i++){
         for(int j=0;j<50;j++){
             cout<<map[1][i][j]<<" ";
