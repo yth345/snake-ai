@@ -20,11 +20,8 @@ queue<tuple<int, int>> Snake::nextPosition(vector<vector<int>> map)
 		copyPosition.pop();
 	}
 
-
-
 	// if there is no path in record, find one
     if (!this->hasPath){
-
 		vector<vector<int>> copyMap, copyMap2;
 	    vector<int> row;
 	    for (int i = 0; i < map.size(); i++){
@@ -42,13 +39,10 @@ queue<tuple<int, int>> Snake::nextPosition(vector<vector<int>> map)
 		// see if it is possible for the snake to find its tail after eating the current food, if not, follow tail
 		// send out virtual snake only when the snake is long enough
 		if (pointCnt > snakeLengthBound){
-
 			if (!this->currPath.empty()){
 				stack<tuple<int, int>> virtualTailPath = bfsVirtualTail(copyMap2, this->currPath);
-
 				if (virtualTailPath.empty()){
 					stack<tuple<int, int>> tailPath = bfsNext(copyMap, position.back(), position.front());
-
 					if (!tailPath.empty()){
 						nextPos = tailPath.top();
 						if (arriveFood(nextPos, food) || foodOnBody){
@@ -60,15 +54,10 @@ queue<tuple<int, int>> Snake::nextPosition(vector<vector<int>> map)
     					position.push(nextPos);
 						return position;
 					}
-
 				}
 			}
-			
 		}
-		
     }
-
-
 
 	// if the path in record is not yet empty, move one step on the current path
     if (!this->currPath.empty()){
@@ -100,8 +89,6 @@ queue<tuple<int, int>> Snake::nextPosition(vector<vector<int>> map)
             nextPos = {headX, headY};
     }
 
-
-
 	// update position
     if (arriveFood(nextPos, food) || foodOnBody){
 		hasPath = false;
@@ -116,7 +103,6 @@ queue<tuple<int, int>> Snake::nextPosition(vector<vector<int>> map)
 }
 
 
-
 vector<tuple<int, int>> Snake::findFood(vector<vector<int>> &map) 
 {
 	vector<tuple<int, int>> foodList;
@@ -128,7 +114,6 @@ vector<tuple<int, int>> Snake::findFood(vector<vector<int>> &map)
 	}
 	return foodList;
 }
-
 
 
 stack<tuple<int, int>> Snake::bfsNext(vector<vector<int>> &map, tuple<int, int> start, tuple<int, int> destination) 
@@ -155,8 +140,6 @@ stack<tuple<int, int>> Snake::bfsNext(vector<vector<int>> &map, tuple<int, int> 
 		predecessor.push_back(row);
 	}
 	
-
-
 	int x = 0, y = 0;
 	markBodyPosition(map);
 
@@ -178,7 +161,6 @@ stack<tuple<int, int>> Snake::bfsNext(vector<vector<int>> &map, tuple<int, int> 
 				visited[x][y+1] = true;
 			}
 		}
-
 		// down
 		if (!visited[x+1][y]){
 			if (x+1 == dstX && y == dstY){
@@ -190,7 +172,6 @@ stack<tuple<int, int>> Snake::bfsNext(vector<vector<int>> &map, tuple<int, int> 
 				visited[x+1][y] = true;
 			}
 		}
-
 		// left
 		if (!visited[x][y-1]){
 			if (x == dstX && y-1 == dstY){
@@ -202,7 +183,6 @@ stack<tuple<int, int>> Snake::bfsNext(vector<vector<int>> &map, tuple<int, int> 
 				visited[x][y-1] = true;
 			}
 		}
-
 		// up
 		if (!visited[x-1][y]){
 			if (x-1 == dstX && y == dstY){
@@ -214,7 +194,6 @@ stack<tuple<int, int>> Snake::bfsNext(vector<vector<int>> &map, tuple<int, int> 
 				visited[x-1][y] = true;
 			}
 		}
-
 	}
 
     // find the path by the predecessors recorded
@@ -239,7 +218,6 @@ stack<tuple<int, int>> Snake::bfsNext(vector<vector<int>> &map, tuple<int, int> 
 }
 
 
-
 void Snake::markBodyPosition(vector<vector<int>> &map)
 {
 	queue<tuple<int, int>> temp;
@@ -259,7 +237,6 @@ void Snake::markBodyPosition(vector<vector<int>> &map)
 }
 
 
-
 stack<tuple<int, int>> Snake::bfsVirtualTail(vector<vector<int>> &copyMap, stack<tuple<int, int>> &path) 
 {
 	stack<tuple<int, int>> copyPath = path;
@@ -277,11 +254,9 @@ stack<tuple<int, int>> Snake::bfsVirtualTail(vector<vector<int>> &copyMap, stack
 		copyMap[x][y] = 0;
 		copyPath.pop();
 	}
-
 	stack<tuple<int, int>> pathToTail = bfsNext(copyMap, virtualSnake.back(), virtualSnake.front());
 	return pathToTail;
 }
-
 
 
 bool Snake::arriveFood(tuple<int, int> &pos, vector<tuple<int, int>> &food)
@@ -294,13 +269,11 @@ bool Snake::arriveFood(tuple<int, int> &pos, vector<tuple<int, int>> &food)
 }
 
 
-
 bool Snake::collide(queue<tuple<int, int>> pos_body, tuple<int, int> pos_head, vector<vector<int>> map)
 {
 	//Check if the head is crashing into the obstacle
 	if(map[std::get<0>(pos_head)][std::get<1>(pos_head)] == -1)
 		return true;
-	
 	
 	//Check if the head is crashing into itself, a.k.a. tails
 	while(pos_body.size() != 0){
@@ -308,6 +281,5 @@ bool Snake::collide(queue<tuple<int, int>> pos_body, tuple<int, int> pos_head, v
 			return true;
 		pos_body.pop();
 	}
-
 	return false;
 }
